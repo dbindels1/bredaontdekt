@@ -1,34 +1,36 @@
 /* =========================================================
-   Basis & Kleurvariabelen (Geen JavaScript nodig)
+   Vrolijke & Warme Yoga-stijl (Zonder groen, puur HTML & CSS)
    ========================================================= */
 :root {
-    --bg-page: #f7f9f8;
+    /* Zachte, warme achtergronden (Zand, Lotusbloesem & Crème) */
+    --bg-page: #fdf8f5;
     --bg-surface: #ffffff;
-    --text-main: #24302c;
-    --text-muted: #5a6b65;
-    --border-light: #e0e7e4;
+    --text-main: #382b33;
+    --text-muted: #76646e;
+    --border-light: #f0e3e7;
 
-    /* Hoofdkleur header */
-    --primary: #2d5a4c;
-    --primary-dark: #1f4036;
+    /* Hoofdkleur: Warm Lotus-paars / Bessen & Zonsopgang */
+    --primary: #7c4d6b;
+    --primary-dark: #5c364e;
+    --header-gradient: linear-gradient(135deg, #8e5572 0%, #c8747d 52%, #e89f71 100%);
 
-    /* Sectiekleur 1: Yoga (Saliegroen) */
-    --yoga-bg: #e8f3ee;
-    --yoga-accent: #2e7d5b;
-    --yoga-text: #1b4d38;
+    /* Sectiekleur 1: Yoga (Zacht Lavendel & Amethist) */
+    --yoga-bg: #f3ebfa;
+    --yoga-accent: #8b5fbf;
+    --yoga-text: #4d2c7a;
 
-    /* Sectiekleur 2: Dans (Warm Oker/Goud) */
-    --dans-bg: #fef4e4;
-    --dans-accent: #d9822b;
-    --dans-text: #7a440d;
+    /* Sectiekleur 2: Dans (Zonnig Perzik & Koraal) */
+    --dans-bg: #fff1e3;
+    --dans-accent: #f0834a;
+    --dans-text: #944116;
 
-    /* Sectiekleur 3: Spel (Helder Blauw) */
-    --spel-bg: #e7f1fa;
-    --spel-accent: #2b6cb0;
-    --spel-text: #1a4370;
+    /* Sectiekleur 3: Spel (Vrolijk Turkoois / Hemelsblauw) */
+    --spel-bg: #e4f5f9;
+    --spel-accent: #2ba6bd;
+    --spel-text: #145b69;
 
-    --radius: 10px;
-    --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --radius: 16px;
+    --shadow: 0 6px 18px rgba(124, 77, 107, 0.08);
 }
 
 * {
@@ -38,10 +40,14 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Quicksand", "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-page);
+    /* Subtiel, rustgevend mandala-achtig stippen- en golfpatroon in pure CSS */
+    background-image: 
+        radial-gradient(circle at 12% 18%, rgba(232, 159, 113, 0.12) 0%, transparent 28%),
+        radial-gradient(circle at 88% 75%, rgba(139, 95, 191, 0.10) 0%, transparent 32%);
     color: var(--text-main);
-    line-height: 1.6;
+    line-height: 1.65;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -51,26 +57,64 @@ body {
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 22px;
 }
 
 /* =========================================================
-   Header & Navigatie
+   Header & Navigatie (Zonsopgang / Lotus sfeer)
    ========================================================= */
 .site-header {
-    background-color: var(--primary);
+    background: var(--header-gradient);
     color: #ffffff;
-    padding: 32px 0 24px;
+    padding: 40px 0 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decoratieve lotus/zonne-cirkels in de header (pure CSS) */
+.site-header::before,
+.site-header::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    pointer-events: none;
+}
+
+.site-header::before {
+    width: 240px;
+    height: 240px;
+    right: -40px;
+    top: -60px;
+}
+
+.site-header::after {
+    width: 150px;
+    height: 150px;
+    right: 35px;
+    top: -15px;
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .site-header h1 {
-    font-size: 1.85rem;
+    font-size: 2rem;
+    letter-spacing: -0.01em;
     margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Subtiel lotus/ster-symbool voor de titel */
+.site-header h1::before {
+    content: "✦";
+    font-size: 1.5rem;
+    color: #ffe3c4;
 }
 
 .site-header .subtitle {
-    color: #d6e6e0;
-    font-size: 1.05rem;
+    color: #fff3eb;
+    font-size: 1.08rem;
 }
 
 .main-nav {
@@ -78,36 +122,37 @@ body {
     position: sticky;
     top: 0;
     z-index: 10;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 10px rgba(92, 54, 78, 0.18);
 }
 
 .main-nav ul {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    padding: 8px 0;
+    gap: 8px;
+    padding: 10px 0;
 }
 
 .main-nav a {
     display: inline-block;
-    color: #e6f0ec;
+    color: #f9eaf2;
     text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: background-color 0.2s;
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.15s;
 }
 
 .main-nav a:hover {
-    background-color: rgba(255, 255, 255, 0.12);
+    background-color: rgba(255, 255, 255, 0.16);
     color: #ffffff;
 }
 
 .main-nav a.active {
-    background-color: #ffffff;
+    background-color: #fff6f0;
     color: var(--primary-dark);
     font-weight: 700;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 /* =========================================================
@@ -115,45 +160,48 @@ body {
    ========================================================= */
 main {
     flex: 1;
-    padding: 32px 20px 48px;
+    padding: 34px 22px 52px;
 }
 
 .intro-section {
     background: var(--bg-surface);
-    padding: 24px;
+    padding: 28px;
     border-radius: var(--radius);
     border: 1px solid var(--border-light);
     box-shadow: var(--shadow);
-    margin-bottom: 28px;
+    margin-bottom: 30px;
 }
 
 .intro-section h2 {
-    margin-top: 6px;
+    margin-top: 8px;
     margin-bottom: 10px;
-    font-size: 1.5rem;
+    font-size: 1.55rem;
+    color: var(--primary-dark);
 }
 
 .anchor-nav {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 16px;
+    margin-top: 18px;
 }
 
 .anchor-nav a {
-    background-color: var(--bg-page);
-    border: 1px solid var(--border-light);
-    color: var(--text-main);
+    background-color: #fcf5f8;
+    border: 1px solid #e6d3dc;
+    color: var(--primary-dark);
     text-decoration: none;
-    padding: 6px 14px;
-    border-radius: 20px;
+    padding: 7px 16px;
+    border-radius: 25px;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
+    transition: all 0.2s;
 }
 
 .anchor-nav a:hover {
+    background-color: var(--primary);
     border-color: var(--primary);
-    color: var(--primary);
+    color: #ffffff;
 }
 
 /* =========================================================
@@ -161,9 +209,9 @@ main {
    ========================================================= */
 .badge {
     display: inline-block;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 0.8rem;
+    padding: 4px 12px;
+    border-radius: 25px;
+    font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.02em;
 }
@@ -184,23 +232,25 @@ main {
 }
 
 .badge-neutral {
-    background-color: #edf1f0;
+    background-color: #f5eef2;
     color: var(--text-muted);
 }
 
 .btn {
     display: inline-block;
     text-decoration: none;
-    padding: 10px 16px;
-    border-radius: 6px;
-    font-weight: 600;
+    padding: 11px 20px;
+    border-radius: 25px;
+    font-weight: 700;
     font-size: 0.95rem;
-    margin-top: 14px;
-    transition: opacity 0.2s;
+    margin-top: 16px;
+    transition: transform 0.15s, opacity 0.2s;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
 .btn:hover {
-    opacity: 0.9;
+    opacity: 0.92;
+    transform: translateY(-1px);
 }
 
 .btn-yoga {
@@ -219,7 +269,7 @@ main {
 }
 
 .btn-primary {
-    background-color: var(--primary);
+    background: var(--header-gradient);
     color: #ffffff;
 }
 
@@ -229,16 +279,16 @@ main {
 .pillars-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-bottom: 32px;
+    gap: 22px;
+    margin-bottom: 34px;
 }
 
 .card {
     background: var(--bg-surface);
     border-radius: var(--radius);
-    padding: 24px;
+    padding: 26px;
     border: 1px solid var(--border-light);
-    border-top-width: 5px;
+    border-top-width: 6px;
     box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
@@ -246,78 +296,98 @@ main {
 }
 
 .card h3 {
-    margin: 12px 0 8px;
-    font-size: 1.35rem;
+    margin: 14px 0 8px;
+    font-size: 1.4rem;
+    color: var(--text-main);
 }
 
-.card-yoga { border-top-color: var(--yoga-accent); }
-.card-dans { border-top-color: var(--dans-accent); }
-.card-spel { border-top-color: var(--spel-accent); }
+.card-yoga {
+    border-top-color: var(--yoga-accent);
+    background: linear-gradient(180deg, #fbf7ff 0%, #ffffff 35%);
+}
+
+.card-dans {
+    border-top-color: var(--dans-accent);
+    background: linear-gradient(180deg, #fff9f2 0%, #ffffff 35%);
+}
+
+.card-spel {
+    border-top-color: var(--spel-accent);
+    background: linear-gradient(180deg, #f4fbfd 0%, #ffffff 35%);
+}
 
 .lesson-plans-banner {
-    background: var(--bg-surface);
+    background: linear-gradient(135deg, #ffffff 0%, #fdf4f7 100%);
     border: 1px solid var(--border-light);
     border-left: 6px solid var(--primary);
     border-radius: var(--radius);
-    padding: 24px;
+    padding: 28px;
     box-shadow: var(--shadow);
 }
 
 .lesson-plans-banner h2 {
     margin-bottom: 8px;
+    color: var(--primary-dark);
 }
 
 .lesson-quicklinks {
-    margin: 14px 0 6px 20px;
+    margin: 16px 0 8px 22px;
 }
 
 .lesson-quicklinks li {
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .lesson-quicklinks a {
     color: var(--primary);
     text-decoration: none;
+    font-weight: 500;
 }
 
 .lesson-quicklinks a:hover {
     text-decoration: underline;
+    color: var(--primary-dark);
 }
 
 /* =========================================================
    Inklapbare Oefeningen (<details> & <summary>)
    ========================================================= */
 .category-section {
-    margin-bottom: 32px;
+    margin-bottom: 34px;
 }
 
 .category-section h3 {
-    margin-bottom: 14px;
-    padding-bottom: 6px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
     border-bottom: 2px solid var(--border-light);
-    color: var(--text-main);
+    color: var(--primary-dark);
+    font-size: 1.25rem;
 }
 
 .exercise-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-light);
-    border-left-width: 5px;
-    border-radius: 8px;
-    margin-bottom: 12px;
+    border-left-width: 6px;
+    border-radius: 14px;
+    margin-bottom: 14px;
     box-shadow: var(--shadow);
     overflow: hidden;
 }
 
+.exercise-card.card-yoga { border-left-color: var(--yoga-accent); }
+.exercise-card.card-dans { border-left-color: var(--dans-accent); }
+.exercise-card.card-spel { border-left-color: var(--spel-accent); }
+
 .exercise-card summary {
-    padding: 16px 20px;
+    padding: 18px 22px;
     cursor: pointer;
     list-style: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 8px;
-    font-weight: 600;
+    gap: 10px;
+    font-weight: 700;
 }
 
 .exercise-card summary::-webkit-details-marker {
@@ -326,37 +396,47 @@ main {
 
 .exercise-card summary::after {
     content: "+";
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     font-weight: bold;
-    color: var(--text-muted);
-    margin-left: 10px;
+    color: var(--primary);
+    background: #f9eff4;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
 }
 
 .exercise-card[open] summary::after {
     content: "−";
+    background: var(--primary);
+    color: #ffffff;
 }
 
 .exercise-card[open] summary {
     border-bottom: 1px solid var(--border-light);
-    background-color: #fafcfb;
+    background-color: #fdf9fb;
 }
 
 .ex-title {
-    font-size: 1.1rem;
+    font-size: 1.12rem;
     flex: 1;
+    color: var(--text-main);
 }
 
 .ex-meta {
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-muted);
-    background: var(--bg-page);
-    padding: 3px 10px;
-    border-radius: 12px;
+    background: #f7eff3;
+    padding: 4px 12px;
+    border-radius: 20px;
 }
 
 .ex-body {
-    padding: 18px 24px;
+    padding: 20px 26px;
 }
 
 .ex-body ul {
@@ -373,10 +453,10 @@ main {
 
 .info-box {
     background-color: var(--dans-bg);
-    border-left: 4px solid var(--dans-accent);
-    padding: 16px 20px;
-    border-radius: 6px;
-    margin-top: 16px;
+    border-left: 5px solid var(--dans-accent);
+    padding: 18px 22px;
+    border-radius: 12px;
+    margin-top: 18px;
 }
 
 .info-box h4 {
@@ -391,19 +471,19 @@ main {
     background: var(--bg-surface);
     border: 1px solid var(--border-light);
     border-radius: var(--radius);
-    padding: 24px;
-    margin-bottom: 28px;
+    padding: 26px;
+    margin-bottom: 30px;
     box-shadow: var(--shadow);
 }
 
 .lesson-header {
     margin-bottom: 18px;
-    padding-bottom: 14px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--border-light);
 }
 
 .lesson-header h3 {
-    font-size: 1.4rem;
+    font-size: 1.45rem;
     color: var(--primary);
     margin-bottom: 6px;
 }
@@ -425,15 +505,19 @@ main {
 
 .lesson-table th,
 .lesson-table td {
-    padding: 12px 14px;
+    padding: 14px 14px;
     border-bottom: 1px solid var(--border-light);
     vertical-align: top;
 }
 
 .lesson-table th {
-    background-color: var(--bg-page);
+    background-color: #faf2f6;
     font-weight: 700;
-    color: var(--text-main);
+    color: var(--primary-dark);
+}
+
+.lesson-table tr:hover td {
+    background-color: #fffcfa;
 }
 
 .lesson-table tr:last-child td {
@@ -444,11 +528,11 @@ main {
    Footer
    ========================================================= */
 .site-footer {
-    background-color: var(--primary-dark);
-    color: #cfe0da;
+    background: var(--primary-dark);
+    color: #f5dfe9;
     text-align: center;
-    padding: 20px 0;
-    font-size: 0.9rem;
+    padding: 22px 0;
+    font-size: 0.92rem;
     margin-top: auto;
 }
 
@@ -457,13 +541,13 @@ main {
    ========================================================= */
 @media (max-width: 600px) {
     .site-header h1 {
-        font-size: 1.5rem;
+        font-size: 1.55rem;
     }
     .main-nav ul {
         gap: 4px;
     }
     .main-nav a {
-        padding: 6px 10px;
+        padding: 6px 12px;
         font-size: 0.9rem;
     }
 }
