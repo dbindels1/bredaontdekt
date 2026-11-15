@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beweeg &amp; Groei – Lessenbibliotheek</title>
+    <style>
+        /* =========================================================
+           Vrolijke & Warme Yoga-stijl (Alles in 1 bestand)
+           ========================================================= */
+        :root {
+            --bg-page: #fdf8f5;
+            --bg-surface: #ffffff;
+            --text-main: #382b33;
+            --text-muted: #76646e;
+            --border-light: #f0e3e7;
+
+            --primary: #7c4d6b;
+            --primary-dark: #5c364e;
+            --header-gradient: linear-gradient(135deg, #8e5572 0%, #c8747d 52%, #e89f71 100%);
+
+            --yoga-bg: #f3ebfa;
+            --yoga-accent: #8b5fbf;
+            --yoga-text: #4d2c7a;
+
+            --dans-bg: #fff1e3;
+            --dans-accent: #f0834a;
+            --dans-text: #944116;
+
+            --spel-bg: #e4f5f9;
+            --spel-accent: #2ba6bd;
+            --spel-text: #145b69;
+
+            --koken-bg: #fdebf0;
+            --koken-accent: #d95d78;
+            --koken-text: #85283d;
+
+            --radius: 16px;
+            --shadow: 0 6px 18px rgba(124, 77, 107, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Quicksand", "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            background-image: 
+                radial-gradient(circle at 12% 18%, rgba(232, 159, 113, 0.12) 0%, transparent 28%),
+                radial-gradient(circle at 88% 75%, rgba(139, 95, 191, 0.10) 0%, transparent 32%);
+            color: var(--text-main);
+            line-height: 1.65;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+
+        /* Header & Navigatie */
+        .site-header {
+            background: var(--header-gradient);
+            color: #ffffff;
+            padding: 40px 0 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-header::before,
+        .site-header::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.18);
+            pointer-events: none;
+        }
+
+        .site-header::before {
+            width: 240px;
+            height: 240px;
+            right: -40px;
+            top: -60px;
+        }
+
+        .site-header::after {
+            width: 150px;
+            height: 150px;
+            right: 35px;
+            top: -15px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .site-header h1 {
+            font-size: 2rem;
+            letter-spacing: -0.01em;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .site-header h1::before {
+            content: "✦";
+            font-size: 1.5rem;
+            color: #ffe3c4;
+        }
+
+        .site-header .subtitle {
+            color: #fff3eb;
+            font-size: 1.08rem;
+        }
+
+        .main-nav {
+            background-color: var(--primary-dark);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 3px 10px rgba(92, 54, 78, 0.18);
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 10px 0;
+        }
+
+        .main-nav a {
+            display: inline-block;
+            color: #f9eaf2;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: background-color 0.2s, transform 0.15s;
+            cursor: pointer;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            background-color: #fff6f0;
+            color: var(--primary-dark);
+            font-weight: 700;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Views (Single Page Application logica via JS) */
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active-view {
+            display: block;
+        }
+
+        main {
+            flex: 1;
+            padding: 34px 22px 52px;
+        }
+
+        .intro-section {
+            background: var(--bg-surface);
+            padding: 28px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .intro-section h2 {
+            margin-top: 8px;
+            margin-bottom: 10px;
+            font-size: 1.55rem;
+            color: var(--primary-dark);
+        }
+
+        /* Badges & Knoppen */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 25px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .badge-yoga { background-color: var(--yoga-bg); color: var(--yoga-text); }
+        .badge-dans { background-color: var(--dans-bg); color: var(--dans-text); }
+        .badge-spel { background-color: var(--spel-bg); color: var(--spel-text); }
+        .badge-koken { background-color: var(--koken-bg); color: var(--koken-text); }
+        .badge-neutral { background-color: #f5eef2; color: var(--text-muted); }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 11px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-top: 16px;
+            transition: transform 0.15s, opacity 0.2s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover { opacity: 0.92; transform: translateY(-1px); }
+        .btn-yoga { background-color: var(--yoga-accent); color: #ffffff; }
+        .btn-dans { background-color: var(--dans-accent); color: #ffffff; }
+        .btn-spel { background-color: var(--spel-accent); color: #ffffff; }
+        .btn-koken { background-color: var(--koken-accent); color: #ffffff; }
+        .btn-primary { background: var(--header-gradient); color: #ffffff; }
+
+        /* Home Grid */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 22px;
+            margin-bottom: 34px;
+        }
+
+        .card {
+            background: var(--bg-surface);
+            border-radius: var(--radius);
+            padding: 26px;
+            border: 1px solid var(--border-light);
+            border-top-width: 6px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card h3 { margin: 14px 0 8px; font-size: 1.4rem; color: var(--text-main); }
+        .card-yoga { border-top-color: var(--yoga-accent); background: linear-gradient(180deg, #fbf7ff 0%, #ffffff 35%); }
+        .card-dans { border-top-color: var(--dans-accent); background: linear-gradient(180deg, #fff9f2 0%, #ffffff 35%); }
+        .card-spel { border-top-color: var(--spel-accent); background: linear-gradient(180deg, #f4fbfd 0%, #ffffff 35%); }
+        .card-koken { border-top-color: var(--koken-accent); background: linear-gradient(180deg, #fff5f8 0%, #ffffff 35%); }
+
+        .lesson-plans-banner {
+            background: linear-gradient(135deg, #ffffff 0%, #fdf4f7 100%);
+            border: 1px solid var(--border-light);
+            border-left: 6px solid var(--primary);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .lesson-plans-banner h2 { margin-bottom: 8px; color: var(--primary-dark); }
+        .lesson-quicklinks { margin: 16px 0 8px 22px; }
+        .lesson-quicklinks li { margin-bottom: 8px; }
+        .lesson-quicklinks a { color: var(--primary); text-decoration: none; font-weight: 500; cursor: pointer; }
+        .lesson-quicklinks a:hover { text-decoration: underline; color: var(--primary-dark); }
+
+        /* Oefeningen Kaarten met inklapbare functionaliteit via JS */
+        .category-section { margin-bottom: 34px; }
+        .category-section h3 { margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border-light); color: var(--primary-dark); font-size: 1.25rem; }
+
+        .exercise-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-left-width: 6px;
+            border-radius: 14px;
+            margin-bottom: 14px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .exercise-card.card-yoga { border-left-color: var(--yoga-accent); }
+        .exercise-card.card-dans { border-left-color: var(--dans-accent); }
+        .exercise-card.card-spel { border-left-color: var(--spel-accent); }
+        .exercise-card.card-koken { border-left-color: var(--koken-accent); }
+
+        .exercise-header-toggle {
+            padding: 18px 22px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-weight: 700;
+            background-color: var(--bg-surface);
+            transition: background-color 0.2s;
+        }
+
+        .exercise-header-toggle:hover {
+            background-color: #fdf9fb;
+        }
+
+        .exercise-header-toggle::after {
+            content: "+";
+            font-size: 1.35rem;
+            font-weight: bold;
+            color: var(--primary);
+            background: #f9eff4;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 8px;
+        }
+
+        .exercise-card.is-open .exercise-header-toggle::after {
+            content: "−";
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .exercise-card.is-open .exercise-header-toggle {
+            border-bottom: 1px solid var(--border-light);
+            background-color: #fdf9fb;
+        }
+
+        .ex-title { font-size: 1.12rem; flex: 1; color: var(--text-main); }
+        .ex-meta { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); background: #f7eff3; padding: 4px 12px; border-radius: 20px; }
+
+        .exercise-content {
+            display: none;
+            padding: 20px 26px;
+        }
+
+        .exercise-card.is-open .exercise-content {
+            display: block;
+        }
+
+        .exercise-content ul { margin-left: 18px; }
+        .exercise-content li { margin-bottom: 8px; }
+        .exercise-content ol { margin: 6px 0 6px 20px; }
+
+        .info-box {
+            background-color: var(--dans-bg);
+            border-left: 5px solid var(--dans-accent);
+            padding: 18px 22px;
+            border-radius: 12px;
+            margin-top: 18px;
+        }
+        .info-box h4 { color: var(--dans-text); margin-bottom: 4px; }
+
+        /* Lesplannen & Tabellen */
+        .lesson-plan-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 26px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .lesson-header { margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light); }
+        .lesson-header h3 { font-size: 1.45rem; color: var(--primary); margin-bottom: 6px; }
+        .lesson-header p { margin-bottom: 4px; }
+
+        .table-responsive { overflow-x: auto; }
+        .lesson-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
+        .lesson-table th, .lesson-table td { padding: 14px; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+        .lesson-table th { background-color: #faf2f6; font-weight: 700; color: var(--primary-dark); }
+        .lesson-table tr:hover td { background-color: #fffcfa; }
+        .lesson-table tr:last-child td { border-bottom: none; }
+
+        /* Footer */
+        .site-footer {
+            background: var(--primary-dark);
+            color: #f5dfe9;
+            text-align: center;
+            padding: 22px 0;
+            font-size: 0.92rem;
+            margin-top: auto;
+        }
+
+        @media (max-width: 600px) {
+            .site-header h1 { font-size: 1.55rem; }
+            .pillars-grid { grid-template-columns: 1fr; }
+            .main-nav ul { gap: 4px; }
+            .main-nav a { padding: 6px 12px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1>Beweeg &amp; Groei – Lessenbibliotheek</h1>
+            <p class="subtitle">Overzicht van al je lesmateriaal op één centrale plek</p>
+        </div>
+    </header>
+
+    <nav class="main-nav" aria-label="Hoofdnavigatie">
+        <div class="container">
+            <ul>
+                <li><a onclick="switchView('home')" id="nav-home" class="active">Home</a></li>
+                <li><a onclick="switchView('yoga')" id="nav-yoga">Yoga</a></li>
+                <li><a onclick="switchView('dans')" id="nav-dans">Dans</a></li>
+                <li><a onclick="switchView('spel')" id="nav-spel">Spel</a></li>
+                <li><a onclick="switchView('koken')" id="nav-koken">Koken</a></li>
+                <li><a onclick="switchView('lessen')" id="nav-lessen">Lesplannen</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <!-- HOME VIEW -->
+        <section id="view-home" class="view-section active-view">
+            <div class="intro-section">
+                <h2>Welkom in je digitale lesmap</h2>
+                <p>
+                    Hier vind je al je oefeningen en uitgewerkte lessen overzichtelijk bij elkaar. 
+                    Gebruik de navigatie hierboven om te bladeren door Yoga, Dans, Spel en Koken, of open direct een compleet lesplan.
+                </p>
+            </div>
+
+            <div class="pillars-grid">
+                <article class="card card-yoga">
+                    <span class="badge badge-yoga">Sectie 1</span>
+                    <h3>Yoga</h3>
+                    <p>Rust, lichaamsbewustzijn, ademhaling en ontspanning. Van energie-checks en dierenyoga tot ligmeditaties.</p>
+                    <button class="btn btn-yoga" onclick="switchView('yoga')">Bekijk Yoga-oefeningen &rarr;</button>
+                </article>
+
+                <article class="card card-dans">
+                    <span class="badge badge-dans">Sectie 2</span>
+                    <h3>Dans</h3>
+                    <p>Bewegen op muziek, ritmegevoel en vrije lichaamsexpressie, zoals het muziekstop-spel.</p>
+                    <button class="btn btn-dans" onclick="switchView('dans')">Bekijk Dans-oefeningen &rarr;</button>
+                </article>
+
+                <article class="card card-spel">
+                    <span class="badge badge-spel">Sectie 3</span>
+                    <h3>Spel</h3>
+                    <p>Samenwerking, kennismaking, tikkertjes en teamestafettes gericht op groepsgevoel en plezier.</p>
+                    <button class="btn btn-spel" onclick="switchView('spel')">Bekijk Spel-oefeningen &rarr;</button>
+                </article>
+
+                <article class="card card-koken">
+                    <span class="badge badge-koken">Sectie 4</span>
+                    <h3>Koken</h3>
+                    <p>Samen bereiden, proeven en ontdekken. Gezonde tussendoortjes en mindful proefopdrachten.</p>
+                    <button class="btn btn-koken" onclick="switchView('koken')">Bekijk Kook-oefeningen &rarr;</button>
+                </article>
+            </div>
+
+            <div class="lesson-plans-banner">
+                <h2>Kant-en-klare Lesplannen</h2>
+                <p>Direct aan de slag? Bekijk de volledig uitgewerkte lessen waarin alles logisch is gecombineerd.</p>
+                <ul class="lesson-quicklinks">
+                    <li><a onclick="switchView('lessen'); scrollToElement('les-1');"><strong>Les 1:</strong> Ik hoor erbij! (Thema: We vormen een team)</a></li>
+                    <li><a onclick="switchView('lessen'); scrollToElement('les-2');"><strong>Les 2:</strong> Actie &amp; Balans</a></li>
+                    <li><a onclick="switchView('lessen'); scrollToElement('les-3');"><strong>Les 3:</strong> Samen Sterk</a></li>
+                </ul>
+                <button class="btn btn-primary" onclick="switchView('lessen')">Ga naar alle Lesplannen &rarr;</button>
+            </div>
+        </section>
+
+        <!-- YOGA VIEW -->
+        <section id="view-yoga" class="view-section">
+            <div class="intro-section">
+                <span class="badge badge-yoga">Sectie 1: Yoga</span>
+                <h2>Yoga &amp; Ontspanning</h2>
+                <p>Klik op een oefening om de volledige beschrijving en benodigdheden te openen.</p>
+            </div>
+
+            <section class="category-section">
+                <h3>Opwarmers &amp; Energie-checks</h3>
+                <div class="exercise-card card-yoga is-open">
+                    <div class="exercise-header-toggle" onclick="toggleCard(this)">
+                        <span class="ex-title">Energie-check als een dier</span>
+                        <span class="ex-meta">5 min &bull; Bron: Les 1</span>
+                    </div>
+                    <div class="exercise-content">
+                        <ul>
+                            <li><strong>Doel:</strong> Lichaamsbewustzijn, inchecken bij jezelf en emoties/energie herkennen.</li>
+                            <li><strong>Materiaal:</strong> Geen.</li>
+                            <li><strong>Uitleg:</strong> Laat de kinderen in de kring staan of zitten. Stel de vraag: <em>"Hoe voel je je vandaag?"</em> Laat elk kind zijn of haar gevoel of energieniveau uitbeelden als een dier (bijv. een slome schildpad, een enthousiaste puppy of een rustige kat).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="category-section">
+                <h3>Thema-yoga &amp; Houdingen</h3>
+                <div class="exercise-card card-yoga">
+                    <div class="exercise-header-toggle" onclick="toggleCard(this)">
+                        <span class="ex-title">Dierenyoga</span>
+                        <span class="ex-meta">10 - 15 min &bull; Bron: Les 1</span>
+                    </div>
+                    <div class="exercise-content">
+                        <ul>
+                            <li><strong>Doel:</strong> Balans, flexibiliteit en voelen wat beweging met je lijf doet.</li>
+                            <li><strong>Materiaal:</strong> Yogamatten (optioneel).
