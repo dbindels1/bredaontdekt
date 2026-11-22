@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startdata Importeren in Firebase</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main class="container" style="max-width: 680px; margin-top: 40px;">
+        <div class="intro-section">
+            <h2>Startdata importeren in Firestore</h2>
+            <p style="margin-bottom: 16px;">
+                Klik op de knop hieronder om alle bestaande categorieën (Yoga, Dans, Spel, Koken), 
+                secties, oefeningen en de 4 lesplannen eenmalig op te slaan in je Firebase-database.
+            </p>
+            <button id="btn-start-import" class="btn btn-primary">🚀 Importeer alle lessen &amp; oefeningen</button>
+            <a href="lessen.html" class="btn btn-outline" style="margin-left: 8px;">Ga naar lessen.html &rarr;</a>
+            <div id="import-log" style="margin-top: 20px; font-size: 0.92rem; line-height: 1.7;"></div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { db } from "./firebase-config.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        const logEl = document.getElementById("import-log");
+        const btn = document.getElementById("btn-start-import");
+
+        function log(tekst) {
+            logEl.innerHTML += `<div>${tekst}</div>`;
+        }
+
+        btn.addEventListener("click", async () => {
+            btn.disabled = true;
+            logEl.innerHTML = "";
+            log("Bezig met importeren...");
+
+            try {
+                // 1. Categorieën
+                const catYoga = await addDoc(collection(db, "categorieen"), { naam: "Yoga", kleur: "paars", volgorde: 1 });
+                const catDans = await addDoc(collection(db, "categorieen"), { naam: "Dans", kleur: "oranje", volgorde: 2 });
+                const catSpel = await addDoc(collection(db, "categorieen"), { naam: "Spel", kleur: "blauw", volgorde: 3 });
+                const catKoken = await addDoc(collection(db, "categorieen"), { naam: "Koken", kleur: "roze", volgorde: 4 });
+                log("✅ Categorieën aangemaakt.");
+
+                // 2. Secties
+                const secYogaOpwarm = await addDoc(collection(db, "secties"), { categorieId: catYoga.id, naam: "Opwarmers & Energie-checks", volgorde: 1 });
+                const secYogaThema = await addDoc(collection(db, "secties"), { categorieId: catYoga.id, naam: "Thema-yoga & Houdingen", volgorde: 2 });
+                const secYogaRust = await addDoc(collection(db, "secties"), { categorieId: catYoga.id, naam: "Eindontspanning & Meditatie", volgorde: 3 });
+
+                const secDansMuziek = await addDoc(collection(db, "secties"), { categorieId: catDans.id, naam: "Bewegen op Muziek", volgorde: 1 });
+
+                const secSpelKring = await addDoc(collection(db, "secties"), { categorieId: catSpel.id, naam: "Kennismaking & Kring", volgorde: 1 });
+                const secSpelBeweeg = await addDoc(collection(db, "secties"), { categorieId: catSpel.id, naam: "Bewegingsspellen & Expressie", volgorde: 2 });
+                const secSpelTik = await addDoc(collection(db, "secties"), { categorieId: catSpel.id, naam: "Tikkertjes & Actiespellen", volgorde: 3 });
+                const secSpelSamen = await addDoc(collection(db, "secties"), { categorieId: catSpel.id, naam: "Samenwerking & Estafettes", volgorde: 4 });
+
+                const secKokenBasis = await addDoc(collection(db, "secties"), { categorieId: catKoken.id, naam: "Kook- & Proefactiviteiten", volgorde: 1 });
+                log("✅ Secties aangemaakt.");
+
+                // 3. Oefeningen
+                const oefEnergieCheck = await addDoc(collection(db, "oefeningen"), {
+                    categorieId: catYoga.id, sectieId: secYogaOpwarm.id,
+                    titel: "Energie-check als een dier", duur: "5 min",
+                    doel: "Lichaamsbewustzijn, inchecken bij jezelf en emoties/energie herkennen.",
+                    materiaal: "Geen",
+                    uitleg: "Laat de kinderen in de kring staan of zitten. Stel de vraag: 'Hoe voel je je vandaag?' Laat elk kind zijn of haar gevoel of energieniveau uitbeelden als een dier.",
+                    reflectievraag: "Hoe voel je je vandaag?", bewustzijn: "Ik mag voelen hoe mijn energie vandaag is.", afsluiting: "", omschrijving: ""
+                });
+
+                const oefSuperkrachtYoga = await addDoc(collection(db, "oefeningen"), {
+                    categorieId: catYoga.id, sectieId: secYogaThema.id,
+                    titel: "De superkracht-yoga", duur: "10 min",
+                    doel: "Evenwicht, zelfvertrouwen, aandacht richten en grenzen ontdekken.",
+                    materiaal: "Yogamatten (optioneel)",
+                    uitleg: "Oefen drie superkrachten: De boom (stevig staan, armen als takken), De berg (voeten op de grond, lang maken) en De ster (armen en benen wijd spreiden).",
+                    reflectievraag: "Wat helpt jou om je evenwicht te bewaren?",
+                    bewustzijn: "Ik kan mijn aandacht richten, mijn grenzen ontdekken en vertrouwen op mijn eigen mogelijkheden.",
+                    afsluiting: "Eindig met de ster: 'Iedereen heeft zijn eigen manier om een ster te zijn.'",
+                    omschrijving: "Kinderen mogen hun voeten verplaatsen, steun zoeken of een andere houding kiezen."
+                });
+
+                const oefDierenyoga = await addDoc(collection(db, "oefeningen"), {
+                    categorieId: catYoga.id, sectieId: secYogaThema.id,
+                    titel: "Dierenyoga", duur: "10 - 15 min",
+                    doel: "Balans, flexibiliteit en voelen wat beweging met je lijf doet.",
+                    materiaal: "Yogamatten (optioneel)",
+                    uitleg: "Houdingen: Boom, Kat, Hond (neerwaartse hond), Kikker, Vlinder.",
+                    reflectievraag: "Hoe voelt jouw lijf nu?", bewustzijn: "", afsluiting: "", omschrijving: ""
+                });
+
+                const oefEmotieYoga = await addDoc(collection(db, "oefeningen"), {
+                    categorieId: catYoga.id, sectieId: secYogaThema.id,
+                    titel: "Emotie-yoga", duur: "10 - 15 min",
+                    doel: "Emoties koppelen aan lichaamshoudingen en spanning loslaten.",
+                    materiaal: "Yogamatten",
+                    uitleg: "Houdingen: Leeuw (boos/brullen), Ster (trots), Schildpad (bang/veilig schild), Vlinder (blij).",
+                    reflectievraag: "Welke emotie gebruik jij vaak?", bewustzijn: "", afsluiting: "", omschrijving: ""
+                });
+
+                const oefRustplek = await addDoc(collection(db, "oefeningen"), {
+                    categorieId: catYoga.id, sectieId: secYogaRust.id,
+                    titel: "De rustplek in jezelf", duur: "8 min",
+                    doel: "Ontspanning, reflectie en na inspanning weer tot rust komen.",
+                    materiaal: "Yogamatten (optioneel)",
+                    uitleg: "Laat de kinderen op een mat liggen of comfortabel zitten. Spreek langzaam en met pauzes de zon-visualisatie uit.",
+                    reflectievraag: "Wat neem jij mee uit deze les?",
+                    bewustzijn: "Ik kan aandacht geven aan mezelf, mijn ervaringen herkennen en na inspanning weer tot rust komen.",
+                    afsluiting: "Rustig vingers en tenen bewegen, uitrekken en op eigen tempo overeind komen.",
+                    omschrijving: "Stel je voor dat er een warm zonnetje boven je schijnt. Denk aan iets wat je vandaag leuk vond: dat is jouw superkracht."
+                });
+
+                const oefShavasana = await addDoc(collection(db, "oefeningen"), {
+                    categorieId: catYoga.id, sectieId: secYogaRust.id,
+                    titel: "Shavasana met klankschaal", duur: "5 - 10 min",
+                    doel: "Volledige fysieke en mentale ontspanning.",
+                    materiaal: "Klankschaal, matten",
+                    uitleg: "Languit op de rug liggen met de ogen dicht. Loop rustig langs de kinderen terwijl je de klankschaal zachtjes aanslaat.",
+                    reflectievraag: "", bewustzijn: "", afsluiting: "", omschrijving: ""
+                });
+
+                const oefLigmeditatie = await addDoc(collection(db, "oefeningen"), {
+                    categorieId: catYoga.id, sectieId: secYogaRust.id,
+                    titel: "Ligmeditatie", duur: "5 - 10 min",
+                    doel: "Tot rust komen na actieve spellen.",
+                    materiaal: "Matten",
+                    uitleg: "Comfortabel op de rug liggen en begeleiden via ademhaling of een visualisatieverhaal.",
+                    reflectievraag: "", bewustzijn: "", afsluiting: "", omschrijving: ""
+                });
+
+                const oefDansVoelt = await addDoc(collection(db, "oefeningen"), {
+                    categorieId: catDans.id, sectieId: secDansMuziek.id,
+                    titel: "Dans wat je voelt", duur: "10 min",
+                    doel: "Emoties herkennen en uitdrukken zonder oordeel.",
+                    materiaal: "Muziekspeler met vrolijke muziek",
+                    uitleg: "Vrij bewegen op muziek met opdrachten: blij dansen, rustige wolk, trots groot maken, energie losschudden en zelf een beweging bedenken.",
+                    reflectievraag: "",
+                    bewustzijn: "Ik kan gevoelens herkennen en uitdrukken zonder dat ik hoef te oordelen over wat ik voel.",
+                    afsluiting: "", omschrijving: ""
+                });
+
+                const oefMuziekstop = await addDoc(collection(db, "oefeningen"), {
+                    categorieId: catDans.id, sectieId: secDansMuziek.id,
+                    titel: "Muziekstop-spel", duur: "5 - 10 min",
+                    doel: "Ritmegevoel, lichaamsbeheersing en actief luisteren.",
+                    materiaal: "Muziekspeler",
+                    uitleg: "Dansen op vrolijke muziek. Zodra de muziek stopt, bevriest iedereen direct als een standbeeld.",
+                    reflectievraag: "", bewustzijn: "", afsluiting: "", omschrijving: ""
+                });
+
+                const oefKrachtcirkel = await addDoc(collection(db, "oefeningen"), {
+                    categorieId: catSpel.id, sectieId: secSpelKring.id,
+                    titel: "De krachtcirkel", duur: "8 min",
+                    doel: "Veiligheid, verbinding en op ontdekkingstocht naar ieders superkracht.",
+                    materiaal: "Geen",
+                    uitleg: "In de kring een beweging kiezen die bij je stemming past; de groep doet deze beweging na als het kind dat prettig vindt.",
+                    reflectievraag: "", bewustzijn: "Ik mag mezelf laten zien en hoor erbij.", afsluiting: "", omschrijving: ""
+                });
+
+                const oefBalVerbinding = await addDoc(collection(db, "oefeningen"), {
+                    categorieId: catSpel.id, sectieId: secSpelKring.id,
+                    titel: "De bal van verbinding", duur: "12 min",
+                    doel: "Samenwerken, aandacht geven aan een ander en luisteren.",
+                    materiaal: "Zachte bal",
+                    uitleg: "Zachte bal doorrollen in de kring en benoemen waar je blij van wordt. Ronde 2: de bal doorgeven zonder dat iemand wordt overgeslagen.",
+                    reflectievraag: "", bewustzijn: "Ik kan aandacht geven aan een ander, luisteren en samen iets voor elkaar krijgen.",
+                    afsluiting: "", omschrijving: "Maak het geen wedstrijd en laat kinderen zelf kiezen hoeveel ze vertellen."
+                });
+
+                const oefDierenexpeditie = await addDoc(collection(db, "oefeningen"), {
+                    categorieId: catSpel.id, sectieId: secSpelBeweeg.id,
+                    titel: "De dierenexpeditie", duur: "12 min",
+                    doel: "Plezier, lichaamsbewustzijn en ontdekken wat bij je past.",
+                    materiaal: "Geen",
+                    uitleg: "Bewegen door de zaal als kikker, beer, flamingo, slang en kat (blij en uitrustend) + zelf dieren bedenken.",
+                    reflectievraag: "Hoe beweegt jouw dier als het heel blij is?",
+                    bewustzijn: "Mijn lichaam kan van alles en ik mag ontdekken wat bij mij past.",
+                    afsluiting: "", omschrijving: ""
+                });
+
+                const oefFruitspiesjes = await addDoc(collection(db, "oefeningen"), {
+                    categorieId: catKoken.id, sectieId: secKokenBasis.id,
+                    titel: "Gezonde fruitspiesjes maken", duur: "15 min",
+                    doel: "Bewust proeven (mindful eten), fijne motoriek en samen delen.",
+                    materiaal: "Satéprikkers (stomp), fruit, snijplankjes, kindermessen",
+                    uitleg: "Fruit in stukjes snijden, regenboogspiesjes samenstellen en met aandacht proeven.",
+                    reflectievraag: "", bewustzijn: "", afsluiting: "", omschrijving: ""
+                });
+                log("✅ Oefeningen aangemaakt.");
+
+                // 4. Voorbeeld Lesplan (Les 4: De reis van je superkracht)
+                await addDoc(collection(db, "lesplannen"), {
+                    titel: "Les 4: De reis van je superkracht 🌟",
+                    doel: "Kinderen (6–8 jaar) plezier laten ervaren, zichzelf laten zijn, samenwerken en op speelse wijze ontdekken wat er in hen leeft.",
+                    items: [
+                        { oefeningId: oefKrachtcirkel.id, lesfase: "0–8 min (Veiligheid)", titel: "De krachtcirkel", sectieNaam: "Kennismaking & Kring", doel: "Veiligheid, verbinding en jezelf laten zien." },
+                        { oefeningId: oefDierenexpeditie.id, lesfase: "8–20 min (Plezier)", titel: "De dierenexpeditie", sectieNaam: "Bewegingsspellen & Expressie", doel: "Plezier en lichaamsbewustzijn." },
+                        { oefeningId: oefBalVerbinding.id, lesfase: "20–32 min (Samenwerken)", titel: "De bal van verbinding", sectieNaam: "Kennismaking & Kring", doel: "Samenwerken, aandacht en luisteren." },
+                        { oefeningId: oefSuperkrachtYoga.id, lesfase: "32–42 min (Evenwicht)", titel: "De superkracht-yoga", sectieNaam: "Thema-yoga & Houdingen", doel: "Evenwicht en zelfvertrouwen." },
+                        { oefeningId: oefDansVoelt.id, lesfase: "42–52 min (Expressie)", titel: "Dans wat je voelt", sectieNaam: "Bewegen op Muziek", doel: "Emoties herkennen en uitdrukken." },
+                        { oefeningId: oefRustplek.id, lesfase: "52–60 min (Ontspanning)", titel: "De rustplek in jezelf", sectieNaam: "Eindontspanning & Meditatie", doel: "Ontspanning en reflectie." }
+                    ]
+                });
+                log("✅ Voorbeeldlesplan aangemaakt.");
+                log("<strong>🎉 Klaar! Je kunt nu naar lessen.html gaan.</strong>");
+            } catch (err) {
+                console.error(err);
+                log(`❌ Fout tijdens importeren: ${err.message}`);
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
