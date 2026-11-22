@@ -1,48 +1,26 @@
-/* =========================================================
-   Vrolijke & Warme Yoga-stijl (Zonder groen, puur HTML & CSS)
-   ========================================================= */
 :root {
-    /* Zachte, warme achtergronden (Zand, Lotusbloesem & Crème) */
     --bg-page: #fdf8f5;
     --bg-surface: #ffffff;
     --text-main: #382b33;
     --text-muted: #76646e;
     --border-light: #f0e3e7;
 
-    /* Hoofdkleur: Warm Lotus-paars / Bessen & Zonsopgang */
     --primary: #7c4d6b;
     --primary-dark: #5c364e;
     --header-gradient: linear-gradient(135deg, #8e5572 0%, #c8747d 52%, #e89f71 100%);
 
-    /* Sectiekleur 1: Yoga (Zacht Lavendel & Amethist) */
-    --yoga-bg: #f3ebfa;
-    --yoga-accent: #8b5fbf;
-    --yoga-text: #4d2c7a;
-
-    /* Sectiekleur 2: Dans (Zonnig Perzik & Koraal) */
-    --dans-bg: #fff1e3;
-    --dans-accent: #f0834a;
-    --dans-text: #944116;
-
-    /* Sectiekleur 3: Spel (Vrolijk Turkoois / Hemelsblauw) */
-    --spel-bg: #e4f5f9;
-    --spel-accent: #2ba6bd;
-    --spel-text: #145b69;
-
-    /* Sectiekleur 4: Koken (Warm Framboos / Terracotta-roze) */
-    --koken-bg: #fdebf0;
-    --koken-accent: #d95d78;
-    --koken-text: #85283d;
+    /* Kleurthema's voor categorieën */
+    --paars-bg: #f3ebfa; --paars-accent: #8b5fbf; --paars-text: #4d2c7a;
+    --oranje-bg: #fff1e3; --oranje-accent: #f0834a; --oranje-text: #944116;
+    --blauw-bg: #e4f5f9; --blauw-accent: #2ba6bd; --blauw-text: #145b69;
+    --roze-bg: #fdebf0; --roze-accent: #d95d78; --roze-text: #85283d;
+    --goud-bg: #fef6e0; --goud-accent: #d49b27; --goud-text: #7a5508;
 
     --radius: 16px;
     --shadow: 0 6px 18px rgba(124, 77, 107, 0.08);
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: "Quicksand", "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -57,68 +35,45 @@ body {
     min-height: 100vh;
 }
 
-.container {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 22px;
-}
+.container { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+.hidden { display: none !important; }
 
-/* =========================================================
-   Header & Navigatie (Zonsopgang / Lotus sfeer)
-   ========================================================= */
+/* Header */
 .site-header {
     background: var(--header-gradient);
     color: #ffffff;
-    padding: 40px 0 32px;
+    padding: 32px 0;
     position: relative;
-    overflow: hidden;
 }
 
-.site-header::before,
-.site-header::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.18);
-    pointer-events: none;
-}
-
-.site-header::before {
-    width: 240px;
-    height: 240px;
-    right: -40px;
-    top: -60px;
-}
-
-.site-header::after {
-    width: 150px;
-    height: 150px;
-    right: 35px;
-    top: -15px;
-    background: rgba(255, 255, 255, 0.06);
-}
-
-.site-header h1 {
-    font-size: 2rem;
-    letter-spacing: -0.01em;
-    margin-bottom: 6px;
+.header-flex {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 16px;
 }
 
-.site-header h1::before {
-    content: "✦";
-    font-size: 1.5rem;
-    color: #ffe3c4;
+.site-header h1 { font-size: 1.85rem; margin-bottom: 4px; }
+.site-header .subtitle { color: #fff3eb; font-size: 1rem; }
+
+.btn-lesplannen-header {
+    background-color: #ffffff;
+    color: var(--primary-dark);
+    border: none;
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.98rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s, background-color 0.2s;
 }
 
-.site-header .subtitle {
-    color: #fff3eb;
-    font-size: 1.08rem;
-}
+.btn-lesplannen-header:hover { transform: translateY(-2px); background-color: #fff6f0; }
+.btn-lesplannen-header.active-lesplannen { background-color: #ffe3c4; color: #4a233b; }
 
+/* Navigatiebalk */
 .main-nav {
     background-color: var(--primary-dark);
     position: sticky;
@@ -127,260 +82,148 @@ body {
     box-shadow: 0 3px 10px rgba(92, 54, 78, 0.18);
 }
 
-.main-nav ul {
-    list-style: none;
+.nav-flex {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 8px;
-    padding: 10px 0;
+    gap: 10px;
+    padding: 10px 22px;
 }
+
+.main-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
 
 .main-nav a {
     display: inline-block;
     color: #f9eaf2;
     text-decoration: none;
-    padding: 8px 18px;
+    padding: 7px 16px;
     border-radius: 25px;
     font-weight: 600;
-    transition: background-color 0.2s, transform 0.15s;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-.main-nav a:hover {
-    background-color: rgba(255, 255, 255, 0.16);
-    color: #ffffff;
-}
-
-.main-nav a.active {
+.main-nav a:hover, .main-nav a.active {
     background-color: #fff6f0;
     color: var(--primary-dark);
     font-weight: 700;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
-/* =========================================================
-   Main Content & Intro
-   ========================================================= */
-main {
-    flex: 1;
-    padding: 34px 22px 52px;
+.btn-nav-add {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    border: 1px dashed rgba(255, 255, 255, 0.5);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-nav-add:hover { background: rgba(255, 255, 255, 0.3); }
+
+/* Main & Views */
+main { flex: 1; padding: 30px 22px 52px; }
+.view-section { display: none; }
+.view-section.active-view { display: block; }
+
+.loading-box {
+    text-align: center;
+    padding: 40px;
+    background: var(--bg-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    font-weight: 600;
+    color: var(--primary);
 }
 
 .intro-section {
     background: var(--bg-surface);
-    padding: 28px;
+    padding: 24px 28px;
     border-radius: var(--radius);
     border: 1px solid var(--border-light);
     box-shadow: var(--shadow);
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
-.intro-section h2 {
-    margin-top: 8px;
-    margin-bottom: 10px;
-    font-size: 1.55rem;
-    color: var(--primary-dark);
-}
-
-.anchor-nav {
+.intro-top {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 18px;
+    gap: 16px;
 }
 
-.anchor-nav a {
-    background-color: #fcf5f8;
-    border: 1px solid #e6d3dc;
-    color: var(--primary-dark);
-    text-decoration: none;
-    padding: 7px 16px;
+.intro-section h2 { margin-top: 6px; font-size: 1.55rem; color: var(--primary-dark); }
+.crud-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+/* Knoppen */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
     border-radius: 25px;
+    font-weight: 700;
     font-size: 0.9rem;
-    font-weight: 600;
-    transition: all 0.2s;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.15s;
 }
 
-.anchor-nav a:hover {
-    background-color: var(--primary);
-    border-color: var(--primary);
-    color: #ffffff;
-}
+.btn-sm { padding: 6px 12px; font-size: 0.82rem; }
+.btn-xs { padding: 4px 9px; font-size: 0.78rem; border-radius: 12px; }
 
-/* =========================================================
-   Badges & Knoppen
-   ========================================================= */
+.btn-primary { background: var(--header-gradient); color: #ffffff; }
+.btn-primary:hover { opacity: 0.92; }
+
+.btn-outline { background: #ffffff; border-color: #d8c3ce; color: var(--primary-dark); }
+.btn-outline:hover { background: #faf2f6; }
+
+.btn-danger { background: #fde8ec; color: #a82039; border-color: #f5c2cc; }
+.btn-danger:hover { background: #fbd0d8; }
+
+.btn-playlist { background: #eef7f9; color: #145b69; border-color: #bfe3eb; }
+.btn-playlist:hover { background: #d9eff4; }
+
+.btn-pdf { background: #f4effa; color: #4d2c7a; border-color: #d8c6f0; }
+.btn-pdf:hover { background: #e8dcf7; }
+
+/* Badges & Kleurthema's */
 .badge {
     display: inline-block;
     padding: 4px 12px;
     border-radius: 25px;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    letter-spacing: 0.02em;
 }
 
-.badge-yoga {
-    background-color: var(--yoga-bg);
-    color: var(--yoga-text);
-}
+.badge-primary { background-color: #f5e6ef; color: var(--primary-dark); }
+.theme-paars { background-color: var(--paars-bg); color: var(--paars-text); }
+.theme-oranje { background-color: var(--oranje-bg); color: var(--oranje-text); }
+.theme-blauw { background-color: var(--blauw-bg); color: var(--blauw-text); }
+.theme-roze { background-color: var(--roze-bg); color: var(--roze-text); }
+.theme-goud { background-color: var(--goud-bg); color: var(--goud-text); }
 
-.badge-dans {
-    background-color: var(--dans-bg);
-    color: var(--dans-text);
-}
+/* Secties */
+.category-section { margin-bottom: 34px; }
 
-.badge-spel {
-    background-color: var(--spel-bg);
-    color: var(--spel-text);
-}
-
-.badge-koken {
-    background-color: var(--koken-bg);
-    color: var(--koken-text);
-}
-
-.badge-neutral {
-    background-color: #f5eef2;
-    color: var(--text-muted);
-}
-
-.btn {
-    display: inline-block;
-    text-decoration: none;
-    padding: 11px 20px;
-    border-radius: 25px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    margin-top: 16px;
-    transition: transform 0.15s, opacity 0.2s;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-}
-
-.btn:hover {
-    opacity: 0.92;
-    transform: translateY(-1px);
-}
-
-.btn-yoga {
-    background-color: var(--yoga-accent);
-    color: #ffffff;
-}
-
-.btn-dans {
-    background-color: var(--dans-accent);
-    color: #ffffff;
-}
-
-.btn-spel {
-    background-color: var(--spel-accent);
-    color: #ffffff;
-}
-
-.btn-koken {
-    background-color: var(--koken-accent);
-    color: #ffffff;
-}
-
-.btn-primary {
-    background: var(--header-gradient);
-    color: #ffffff;
-}
-
-/* =========================================================
-   Homepagina Grid & Banner (2x2 voor 4 secties)
-   ========================================================= */
-.pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-    gap: 22px;
-    margin-bottom: 34px;
-}
-
-.card {
-    background: var(--bg-surface);
-    border-radius: var(--radius);
-    padding: 26px;
-    border: 1px solid var(--border-light);
-    border-top-width: 6px;
-    box-shadow: var(--shadow);
+.section-header-bar {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-}
-
-.card h3 {
-    margin: 14px 0 8px;
-    font-size: 1.4rem;
-    color: var(--text-main);
-}
-
-.card-yoga {
-    border-top-color: var(--yoga-accent);
-    background: linear-gradient(180deg, #fbf7ff 0%, #ffffff 35%);
-}
-
-.card-dans {
-    border-top-color: var(--dans-accent);
-    background: linear-gradient(180deg, #fff9f2 0%, #ffffff 35%);
-}
-
-.card-spel {
-    border-top-color: var(--spel-accent);
-    background: linear-gradient(180deg, #f4fbfd 0%, #ffffff 35%);
-}
-
-.card-koken {
-    border-top-color: var(--koken-accent);
-    background: linear-gradient(180deg, #fff5f8 0%, #ffffff 35%);
-}
-
-.lesson-plans-banner {
-    background: linear-gradient(135deg, #ffffff 0%, #fdf4f7 100%);
-    border: 1px solid var(--border-light);
-    border-left: 6px solid var(--primary);
-    border-radius: var(--radius);
-    padding: 28px;
-    box-shadow: var(--shadow);
-}
-
-.lesson-plans-banner h2 {
-    margin-bottom: 8px;
-    color: var(--primary-dark);
-}
-
-.lesson-quicklinks {
-    margin: 16px 0 8px 22px;
-}
-
-.lesson-quicklinks li {
-    margin-bottom: 8px;
-}
-
-.lesson-quicklinks a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.lesson-quicklinks a:hover {
-    text-decoration: underline;
-    color: var(--primary-dark);
-}
-
-/* =========================================================
-   Inklapbare Oefeningen (<details> & <summary>)
-   ========================================================= */
-.category-section {
-    margin-bottom: 34px;
-}
-
-.category-section h3 {
-    margin-bottom: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
     padding-bottom: 8px;
     border-bottom: 2px solid var(--border-light);
-    color: var(--primary-dark);
-    font-size: 1.25rem;
 }
 
+.section-header-bar h3 { color: var(--primary-dark); font-size: 1.25rem; }
+
+/* Oefeningen Kaarten */
 .exercise-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-light);
@@ -391,193 +234,206 @@ main {
     overflow: hidden;
 }
 
-.exercise-card.card-yoga { border-left-color: var(--yoga-accent); }
-.exercise-card.card-dans { border-left-color: var(--dans-accent); }
-.exercise-card.card-spel { border-left-color: var(--spel-accent); }
-.exercise-card.card-koken { border-left-color: var(--koken-accent); }
+.border-paars { border-left-color: var(--paars-accent); }
+.border-oranje { border-left-color: var(--oranje-accent); }
+.border-blauw { border-left-color: var(--blauw-accent); }
+.border-roze { border-left-color: var(--roze-accent); }
+.border-goud { border-left-color: var(--goud-accent); }
 
-.exercise-card summary {
-    padding: 18px 22px;
-    cursor: pointer;
-    list-style: none;
+.exercise-top-row {
+    padding: 16px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    gap: 12px;
+    background-color: var(--bg-surface);
+}
+
+.exercise-toggle-area {
+    display: flex;
+    align-items: center;
     gap: 10px;
-    font-weight: 700;
+    flex: 1;
+    cursor: pointer;
+    min-width: 220px;
 }
 
-.exercise-card summary::-webkit-details-marker {
-    display: none;
-}
-
-.exercise-card summary::after {
-    content: "+";
-    font-size: 1.35rem;
+.toggle-icon {
+    font-size: 1.25rem;
     font-weight: bold;
     color: var(--primary);
     background: #f9eff4;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-left: 8px;
+    flex-shrink: 0;
 }
 
-.exercise-card[open] summary::after {
-    content: "−";
-    background: var(--primary);
-    color: #ffffff;
+.exercise-card.is-open .toggle-icon { background: var(--primary); color: #ffffff; }
+.ex-title { font-size: 1.1rem; font-weight: 700; color: var(--text-main); }
+.ex-meta { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); background: #f7eff3; padding: 3px 10px; border-radius: 20px; }
+
+.exercise-content {
+    display: none;
+    padding: 18px 24px;
+    border-top: 1px solid var(--border-light);
+    background-color: #fffdfd;
 }
 
-.exercise-card[open] summary {
-    border-bottom: 1px solid var(--border-light);
-    background-color: #fdf9fb;
+.exercise-card.is-open .exercise-content { display: block; }
+.exercise-content ul { margin-left: 18px; }
+.exercise-content li { margin-bottom: 8px; }
+.extra-omschrijving {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: #faf5f8;
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+    white-space: pre-line;
 }
 
-.ex-title {
-    font-size: 1.12rem;
-    flex: 1;
-    color: var(--text-main);
-}
-
-.ex-meta {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    background: #f7eff3;
-    padding: 4px 12px;
-    border-radius: 20px;
-}
-
-.ex-body {
-    padding: 20px 26px;
-}
-
-.ex-body ul {
-    margin-left: 18px;
-}
-
-.ex-body li {
-    margin-bottom: 8px;
-}
-
-.ex-body ol {
-    margin: 6px 0 6px 20px;
-}
-
-.info-box {
-    background-color: var(--dans-bg);
-    border-left: 5px solid var(--dans-accent);
-    padding: 18px 22px;
-    border-radius: 12px;
-    margin-top: 18px;
-}
-
-.info-box h4 {
-    color: var(--dans-text);
-    margin-bottom: 4px;
-}
-
-.info-box-koken {
-    background-color: var(--koken-bg);
-    border-left-color: var(--koken-accent);
-}
-
-.info-box-koken h4 {
-    color: var(--koken-text);
-}
-
-/* =========================================================
-   Lesplannen & Tabellen
-   ========================================================= */
+/* Lesplannen Kaarten */
 .lesson-plan-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-light);
     border-radius: var(--radius);
-    padding: 26px;
-    margin-bottom: 30px;
+    padding: 24px;
+    margin-bottom: 26px;
     box-shadow: var(--shadow);
 }
 
 .lesson-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 14px;
     margin-bottom: 18px;
-    padding-bottom: 16px;
+    padding-bottom: 14px;
     border-bottom: 1px solid var(--border-light);
 }
 
-.lesson-header h3 {
-    font-size: 1.45rem;
-    color: var(--primary);
-    margin-bottom: 6px;
+.lesson-header h3 { font-size: 1.4rem; color: var(--primary-dark); margin-bottom: 4px; }
+
+.table-responsive { overflow-x: auto; }
+.lesson-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.94rem; }
+.lesson-table th, .lesson-table td { padding: 12px 14px; border-bottom: 1px solid var(--border-light); vertical-align: middle; }
+.lesson-table th { background-color: #faf2f6; font-weight: 700; color: var(--primary-dark); }
+.lesson-table tr:last-child td { border-bottom: none; }
+
+.order-controls { display: inline-flex; gap: 4px; }
+
+/* Modals */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(45, 25, 38, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 100;
 }
 
-.lesson-header p {
-    margin-bottom: 4px;
-}
-
-.table-responsive {
-    overflow-x: auto;
-}
-
-.lesson-table {
+.modal-content {
+    background: #ffffff;
+    border-radius: var(--radius);
     width: 100%;
-    border-collapse: collapse;
-    text-align: left;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 26px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.modal-lg { max-width: 720px; }
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.modal-subtitle { margin-bottom: 14px; color: var(--primary-dark); }
+
+.form-group { margin-bottom: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+label { display: block; font-weight: 700; font-size: 0.88rem; margin-bottom: 5px; color: var(--text-main); }
+
+input[type="text"], select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #dccad3;
+    border-radius: 10px;
+    font-family: inherit;
     font-size: 0.95rem;
 }
 
-.lesson-table th,
-.lesson-table td {
-    padding: 14px 14px;
-    border-bottom: 1px solid var(--border-light);
-    vertical-align: top;
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
+
+.subform-box {
+    background: #faf5f8;
+    border: 1px dashed #cfaec0;
+    padding: 14px;
+    border-radius: 12px;
+    margin-bottom: 14px;
 }
 
-.lesson-table th {
-    background-color: #faf2f6;
+.subform-box h4 { margin-bottom: 10px; color: var(--primary-dark); font-size: 0.95rem; }
+
+/* Kleurkiezer */
+.color-picker-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.color-option { cursor: pointer; display: flex; align-items: center; }
+.color-option input { display: none; }
+.swatch {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.82rem;
     font-weight: 700;
-    color: var(--primary-dark);
+    border: 2px solid transparent;
+    opacity: 0.75;
+}
+.color-option input:checked + .swatch { border-color: var(--primary-dark); opacity: 1; }
+.swatch-paars { background: var(--paars-bg); color: var(--paars-text); }
+.swatch-oranje { background: var(--oranje-bg); color: var(--oranje-text); }
+.swatch-blauw { background: var(--blauw-bg); color: var(--blauw-text); }
+.swatch-roze { background: var(--roze-bg); color: var(--roze-text); }
+.swatch-goud { background: var(--goud-bg); color: var(--goud-text); }
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-light);
 }
 
-.lesson-table tr:hover td {
-    background-color: #fffcfa;
-}
-
-.lesson-table tr:last-child td {
-    border-bottom: none;
-}
-
-/* =========================================================
-   Footer
-   ========================================================= */
 .site-footer {
     background: var(--primary-dark);
     color: #f5dfe9;
     text-align: center;
-    padding: 22px 0;
-    font-size: 0.92rem;
+    padding: 20px 0;
+    font-size: 0.9rem;
     margin-top: auto;
 }
 
-/* =========================================================
-   Mobiele weergave
-   ========================================================= */
-@media (max-width: 600px) {
-    .site-header h1 {
-        font-size: 1.55rem;
-    }
-    .pillars-grid {
-        grid-template-columns: 1fr;
-    }
-    .main-nav ul {
-        gap: 4px;
-    }
-    .main-nav a {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-    }
+@media (max-width: 650px) {
+    .form-row { grid-template-columns: 1fr; }
 }
