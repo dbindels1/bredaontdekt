@@ -3,231 +3,300 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesplannen – Lessenbibliotheek</title>
+    <title>Beweeg &amp; Groei – Lessenbibliotheek</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <header class="site-header">
-        <div class="container">
-            <h1>Beweeg &amp; Groei – Lessenbibliotheek</h1>
-            <p class="subtitle">Kant-en-klare leskaarten waarin Yoga, Dans en Spel samenkomen</p>
+        <div class="container header-flex">
+            <div>
+                <h1>Beweeg &amp; Groei – Lessenbibliotheek</h1>
+                <p class="subtitle">Beheer categorieën, secties, oefeningen en stel je eigen lesplannen samen</p>
+            </div>
+            <div class="header-actions">
+                <button id="btn-open-lesplannen" class="btn-lesplannen-header">
+                    📋 Mijn Lesplannen (<span id="lesplannen-count">0</span>)
+                </button>
+            </div>
         </div>
     </header>
 
-    <nav class="main-nav" aria-label="Hoofdnavigatie">
-        <div class="container">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="yoga.html">Yoga</a></li>
-                <li><a href="dans.html">Dans</a></li>
-                <li><a href="spel.html">Spel</a></li>
-                <li><a href="koken.html">Koken</a></li>
-                <li><a href="lessen.html" class="active">Lesplannen</a></li>
+    <nav class="main-nav" aria-label="Categorie navigatie">
+        <div class="container nav-flex">
+            <ul id="categorie-nav-lijst">
+                <!-- Dynamische categorieën komen hier -->
             </ul>
+            <button id="btn-nieuwe-categorie" class="btn-nav-add">+ Categorie</button>
         </div>
     </nav>
 
     <main class="container">
-        <section class="intro-section">
-            <h2>Volledige Lesplannen</h2>
-            <p>
-                Hieronder vind je de volledig uitgeschreven leskaarten. Elke les volgt een duidelijke opbouw 
-                van binnenkomst en actieve spellen naar rust en reflectie.
-            </p>
-            <div class="anchor-nav">
-                <a href="#les-1">Les 1: Ik hoor erbij!</a>
-                <a href="#les-2">Les 2: Actie &amp; Balans</a>
-                <a href="#les-3">Les 3: Samen Sterk</a>
+        <div id="loading-indicator" class="loading-box">Gegevens laden uit Firebase...</div>
+
+        <!-- WEERGAVE 1: CATEGORIEËN, SECTIES & OEFENINGEN -->
+        <section id="view-bibliotheek" class="view-section active-view">
+            <div id="categorie-header-balk" class="intro-section hidden">
+                <div class="intro-top">
+                    <div>
+                        <span id="actieve-cat-badge" class="badge">Categorie</span>
+                        <h2 id="actieve-cat-titel">Categorie naam</h2>
+                    </div>
+                    <div class="crud-actions">
+                        <button id="btn-nieuwe-sectie" class="btn btn-primary btn-sm">+ Sectie toevoegen</button>
+                        <button id="btn-bewerk-categorie" class="btn btn-outline btn-sm">✏️ Categorie</button>
+                        <button id="btn-verwijder-categorie" class="btn btn-danger btn-sm">🗑️ Verwijder</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="geen-categorieen-melding" class="intro-section hidden">
+                <h2>Nog geen categorieën gevonden</h2>
+                <p>Klik rechtsboven in de balk op <strong>+ Categorie</strong> om te beginnen, of gebruik <code>import.html</code> om je startgegevens in te laden.</p>
+            </div>
+
+            <div id="secties-container">
+                <!-- Dynamische secties en oefeningen komen hier -->
             </div>
         </section>
 
-        <!-- LES 1 -->
-        <article id="les-1" class="lesson-plan-card">
-            <div class="lesson-header">
-                <h3>Les 1: Ik hoor erbij!</h3>
-                <p class="lesson-theme"><strong>Thema:</strong> We vormen een team</p>
-                <p><strong>Doel:</strong> Namen leren kennen, verbinding maken in de groep en elkaar complimenten geven.</p>
-                <p><strong>Benodigdheden:</strong> Zachte bal, muziekspeler, klankschaal <em>(optioneel: pionnen en pittenzakjes voor Schattenroof)</em>.</p>
+        <!-- WEERGAVE 2: LESPLANNEN (VLC-AFSPEELLIJST STIJL) -->
+        <section id="view-lesplannen" class="view-section">
+            <div class="intro-section">
+                <div class="intro-top">
+                    <div>
+                        <span class="badge badge-primary">Afspeellijsten</span>
+                        <h2>Mijn Lesplannen</h2>
+                        <p>Stel lessen samen door oefeningen vanuit de categorieën toe te voegen en zet ze hier in de juiste volgorde.</p>
+                    </div>
+                    <div class="crud-actions">
+                        <button id="btn-nieuw-lesplan-hoofd" class="btn btn-primary">+ Nieuw Lesplan</button>
+                        <button id="btn-terug-bibliotheek" class="btn btn-outline">&larr; Terug naar Categorieën</button>
+                    </div>
+                </div>
             </div>
 
-            <div class="table-responsive">
-                <table class="lesson-table">
-                    <thead>
-                        <tr>
-                            <th>Lesfase</th>
-                            <th>Onderdeel</th>
-                            <th>Sectie</th>
-                            <th>Korte focus / instructie</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>1. Binnenkomst</strong></td>
-                            <td>Bal doorgeven + Energie-check</td>
-                            <td>
-                                <span class="badge badge-spel">Spel</span>
-                                <span class="badge badge-yoga">Yoga</span>
-                            </td>
-                            <td>In de kring: eigen naam + naam ontvanger noemen. Daarna gevoel uitbeelden als een dier.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2. Actief blok</strong></td>
-                            <td>Naam tikkertje</td>
-                            <td><span class="badge badge-spel">Spel</span></td>
-                            <td>Eén tikker. Bevrijden door naam te roepen <em>(variatie: alleen met oogcontact)</em>.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>3. Beweging</strong></td>
-                            <td>Muziekstop-spel</td>
-                            <td><span class="badge badge-dans">Dans</span></td>
-                            <td>Dansen op favoriete muziek; direct bevriezen zodra de muziek op pauze gaat.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>4. Pauze</strong></td>
-                            <td>Drinkpauze</td>
-                            <td><span class="badge badge-neutral">Pauze</span></td>
-                            <td>Even rustig drinken met wat lekkers.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>5. Rustblok</strong></td>
-                            <td>Dierenyoga &amp; Shavasana</td>
-                            <td><span class="badge badge-yoga">Yoga</span></td>
-                            <td>Boom, Kat, Hond, Kikker, Vlinder. Vraag: <em>"Hoe voelt jouw lijf nu?"</em> Eindigen op de rug met klankschaal.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>6. Afronding</strong></td>
-                            <td>Complimentencirkel</td>
-                            <td><span class="badge badge-spel">Spel</span></td>
-                            <td>Iedereen geeft een compliment. Afsluitvraag: <em>"Wanneer voelde jij je onderdeel van de groep?"</em></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Extra (optioneel)</strong></td>
-                            <td>Schattenroof</td>
-                            <td><span class="badge badge-spel">Spel</span></td>
-                            <td>Alleen bij tijd over: twee teams, schatten bewaken en veroveren met een gezamenlijke strategie.</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div id="lesplannen-lijst-container">
+                <!-- Dynamische lesplannen komen hier -->
             </div>
-        </article>
-
-        <!-- LES 2 -->
-        <article id="les-2" class="lesson-plan-card">
-            <div class="lesson-header">
-                <h3>Les 2: Actie &amp; Balans</h3>
-                <p class="lesson-theme"><strong>Thema:</strong> Samenwerken door actie, behendigheid en ontspanning</p>
-                <p><strong>Doel:</strong> Balans bewaren, tactisch samenspelen en gezamenlijk toewerken naar stilte.</p>
-                <p><strong>Benodigdheden:</strong> Lintjes (1 minder dan aantal kinderen), 2 banken, trefballen, pittenzakjes, kegels.</p>
-            </div>
-
-            <div class="table-responsive">
-                <table class="lesson-table">
-                    <thead>
-                        <tr>
-                            <th>Lesfase</th>
-                            <th>Onderdeel</th>
-                            <th>Sectie</th>
-                            <th>Korte focus / instructie</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>1. Binnenkomst</strong></td>
-                            <td>Handen vast &amp; Samen zitten</td>
-                            <td><span class="badge badge-spel">Spel</span></td>
-                            <td>In de kring elkaars handen vasthouden en proberen op precies hetzelfde moment te gaan zitten.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2. Actief blok</strong></td>
-                            <td>Lintjes tikkertje</td>
-                            <td><span class="badge badge-spel">Spel</span></td>
-                            <td>Lintjes achterin de broek stoppen en van elkaar afpakken. Kind zonder lint moet een lint veroveren.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>3. Spel &amp; Sport</strong></td>
-                            <td>Banken-trefbal &amp; Kegels</td>
-                            <td><span class="badge badge-spel">Spel</span></td>
-                            <td>Punten scoren door de bal tegen een gekantelde bank te gooien + in twee teams kegels omgooien met pittenzakjes.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>4. Beweging</strong></td>
-                            <td>Anne Maria Koekkoek</td>
-                            <td><span class="badge badge-spel">Spel</span></td>
-                            <td>Klassiek spel rondom concentratie, reactievermogen en stokstijf stilstaan.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>5. Afronding</strong></td>
-                            <td>Ligmeditatie</td>
-                            <td><span class="badge badge-yoga">Yoga</span></td>
-                            <td>Volledige stilte en ontspanning op de mat om bij te komen van de actieve spellen.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </article>
-
-        <!-- LES 3 -->
-        <article id="les-3" class="lesson-plan-card">
-            <div class="lesson-header">
-                <h3>Les 3: Samen Sterk</h3>
-                <p class="lesson-theme"><strong>Thema:</strong> Verbinding, communicatie en emoties</p>
-                <p><strong>Doel:</strong> Ervaren wat samenwerking en goed luisteren betekenen, gekoppeld aan emotie-yoga.</p>
-                <p><strong>Benodigdheden:</strong> 4 matten, hoepels, pionnen, springplank + landingsmatten, ballen.</p>
-            </div>
-
-            <div class="table-responsive">
-                <table class="lesson-table">
-                    <thead>
-                        <tr>
-                            <th>Lesfase</th>
-                            <th>Onderdeel</th>
-                            <th>Sectie</th>
-                            <th>Korte focus / instructie</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>1. Binnenkomst</strong></td>
-                            <td>Levende Knoop</td>
-                            <td><span class="badge badge-spel">Spel</span></td>
-                            <td>Willekeurige handen vastpakken in een kring en samen puzzelen om de knoop te ontwarren.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2. Samenwerking</strong></td>
-                            <td>Rivier Oversteken &amp; Estafette</td>
-                            <td><span class="badge badge-spel">Spel</span></td>
-                            <td>Met 4 matten en hoepels als team oversteken <em>(matten mogen niet leeg)</em> + reflectievraag. Gevolgd door teamestafette (hand in hand, rug tegen rug, bal tussen knieën).</td>
-                        </tr>
-                        <tr>
-                            <td><strong>3. Pauze</strong></td>
-                            <td>Luisterspel</td>
-                            <td><span class="badge badge-spel">Spel</span></td>
-                            <td>Tijdens de pauze een korte zin doorfluisteren in elkaars oren (<em>"De kat speelt met zijn staart"</em>).</td>
-                        </tr>
-                        <tr>
-                            <td><strong>4. Yoga-blok</strong></td>
-                            <td>Emotie-yoga</td>
-                            <td><span class="badge badge-yoga">Yoga</span></td>
-                            <td>Leeuw (boos), Ster (trots), Schildpad (bang), Vlinder (blij). Deelronde: <em>"Welke emotie gebruik jij vaak?"</em></td>
-                        </tr>
-                        <tr>
-                            <td><strong>5. Afronding</strong></td>
-                            <td>Ligmeditatie</td>
-                            <td><span class="badge badge-yoga">Yoga</span></td>
-                            <td>De les rustig afsluiten met een geleide ontspanning op de rug.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </article>
+        </section>
     </main>
 
     <footer class="site-footer">
         <div class="container">
-            <p>Lessenbibliotheek Yoga, Dans &amp; Spel &bull; Gebouwd met puur HTML &amp; CSS</p>
+            <p>Beweeg &amp; Groei – Lessenbibliotheek &bull; Gekoppeld aan Firebase Firestore</p>
         </div>
     </footer>
 
+    <!-- =========================================================
+         MODALS (POP-UPS VOOR CRUD)
+         ========================================================= -->
+
+    <!-- MODAL 1: Categorie Toevoegen / Bewerken -->
+    <div id="modal-categorie" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-categorie-titel">Nieuwe Categorie</h3>
+                <button class="modal-close" data-close="modal-categorie">&times;</button>
+            </div>
+            <form id="form-categorie">
+                <input type="hidden" id="cat-id">
+                <div class="form-group">
+                    <label for="cat-naam">Naam van de categorie *</label>
+                    <input type="text" id="cat-naam" required placeholder="Bijv. Yoga, Dans, Spel, Koken">
+                </div>
+                <div class="form-group">
+                    <label>Kies een kleurthema *</label>
+                    <div class="color-picker-grid" id="cat-kleur-kiezer">
+                        <label class="color-option">
+                            <input type="radio" name="cat-kleur" value="paars" checked>
+                            <span class="swatch swatch-paars">Lavendel / Paars</span>
+                        </label>
+                        <label class="color-option">
+                            <input type="radio" name="cat-kleur" value="oranje">
+                            <span class="swatch swatch-oranje">Perzik / Oranje</span>
+                        </label>
+                        <label class="color-option">
+                            <input type="radio" name="cat-kleur" value="blauw">
+                            <span class="swatch swatch-blauw">Turkoois / Blauw</span>
+                        </label>
+                        <label class="color-option">
+                            <input type="radio" name="cat-kleur" value="roze">
+                            <span class="swatch swatch-roze">Framboos / Roze</span>
+                        </label>
+                        <label class="color-option">
+                            <input type="radio" name="cat-kleur" value="goud">
+                            <span class="swatch swatch-goud">Zonnig Oker</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-close="modal-categorie">Annuleren</button>
+                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Sectie Toevoegen / Bewerken -->
+    <div id="modal-sectie" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-sectie-titel">Nieuwe Sectie</h3>
+                <button class="modal-close" data-close="modal-sectie">&times;</button>
+            </div>
+            <form id="form-sectie">
+                <input type="hidden" id="sec-id">
+                <input type="hidden" id="sec-cat-id">
+                <div class="form-group">
+                    <label for="sec-naam">Naam van de sectie *</label>
+                    <input type="text" id="sec-naam" required placeholder="Bijv. Thema-yoga & Houdingen">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-close="modal-sectie">Annuleren</button>
+                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: Oefening Toevoegen / Bewerken -->
+    <div id="modal-oefening" class="modal hidden">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3 id="modal-oefening-titel">Nieuwe Oefening</h3>
+                <button class="modal-close" data-close="modal-oefening">&times;</button>
+            </div>
+            <form id="form-oefening">
+                <input type="hidden" id="oef-id">
+                <input type="hidden" id="oef-cat-id">
+                <input type="hidden" id="oef-sec-id">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="oef-titel">Titel *</label>
+                        <input type="text" id="oef-titel" required placeholder="Bijv. De superkracht-yoga">
+                    </div>
+                    <div class="form-group">
+                        <label for="oef-duur">Duur / Meta</label>
+                        <input type="text" id="oef-duur" placeholder="Bijv. 10 - 15 min">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="oef-doel">Doel</label>
+                        <input type="text" id="oef-doel" placeholder="Wat leren of ervaren de kinderen?">
+                    </div>
+                    <div class="form-group">
+                        <label for="oef-materiaal">Materiaal</label>
+                        <input type="text" id="oef-materiaal" placeholder="Bijv. Yogamatten, zachte bal">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="oef-uitleg">Uitleg</label>
+                    <textarea id="oef-uitleg" rows="3" placeholder="Stap-voor-stap uitleg van de activiteit"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="oef-reflectievraag">Reflectievraag</label>
+                        <input type="text" id="oef-reflectievraag" placeholder="Bijv. Hoe voelt jouw lijf nu?">
+                    </div>
+                    <div class="form-group">
+                        <label for="oef-bewustzijn">Bewustzijn</label>
+                        <input type="text" id="oef-bewustzijn" placeholder="Kernboodschap voor het kind">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="oef-afsluiting">Afsluiting</label>
+                    <input type="text" id="oef-afsluiting" placeholder="Hoe rond je deze oefening af?">
+                </div>
+
+                <div class="form-group">
+                    <label for="oef-omschrijving">Omschrijving (extra informatie, houdingen of verhaaltje)</label>
+                    <textarea id="oef-omschrijving" rows="4" placeholder="Ruimte voor uitgebreide teksten, visualisaties of aandachtspunten..."></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-close="modal-oefening">Annuleren</button>
+                    <button type="submit" class="btn btn-primary">Oefening opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 4: Oefening toevoegen aan Lesplan (VLC-keuzescherm) -->
+    <div id="modal-toevoegen-aan-lesplan" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Voeg toe aan lesplan</h3>
+                <button class="modal-close" data-close="modal-toevoegen-aan-lesplan">&times;</button>
+            </div>
+            <form id="form-toevoegen-aan-lesplan">
+                <input type="hidden" id="koppel-oefening-id">
+                <p class="modal-subtitle">Gekozen oefening: <strong id="koppel-oefening-naam"></strong></p>
+
+                <div class="form-group">
+                    <label for="kies-lesplan-select">Kies een bestaand lesplan of maak een nieuwe *</label>
+                    <select id="kies-lesplan-select" required>
+                        <!-- Wordt gevuld vanuit JS -->
+                    </select>
+                </div>
+
+                <!-- Subformulier wanneer "Nieuw lesplan" gekozen wordt -->
+                <div id="nieuw-lesplan-subform" class="subform-box hidden">
+                    <h4>Nieuw lesplan aanmaken</h4>
+                    <div class="form-group">
+                        <label for="snel-lesplan-titel">Titel van het nieuwe lesplan *</label>
+                        <input type="text" id="snel-lesplan-titel" placeholder="Bijv. Les 5: Ontdekkingstocht">
+                    </div>
+                    <div class="form-group">
+                        <label for="snel-lesplan-doel">Algemeen doel van het lesplan</label>
+                        <input type="text" id="snel-lesplan-doel" placeholder="Bijv. Samenwerken en plezier maken">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="koppel-lesfase">Lesfase (optioneel)</label>
+                    <input type="text" id="koppel-lesfase" placeholder="Bijv. 1. Binnenkomst of 0–10 min">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-close="modal-toevoegen-aan-lesplan">Annuleren</button>
+                    <button type="submit" class="btn btn-primary">Toevoegen onderaan lesplan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 5: Lesplan aanmaken / bewerken -->
+    <div id="modal-lesplan" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-lesplan-titel">Nieuw Lesplan</h3>
+                <button class="modal-close" data-close="modal-lesplan">&times;</button>
+            </div>
+            <form id="form-lesplan">
+                <input type="hidden" id="lp-id">
+                <div class="form-group">
+                    <label for="lp-titel">Titel van het lesplan *</label>
+                    <input type="text" id="lp-titel" required placeholder="Bijv. Les 1: Ik hoor erbij!">
+                </div>
+                <div class="form-group">
+                    <label for="lp-doel">Algemeen doel / omschrijving</label>
+                    <textarea id="lp-doel" rows="3" placeholder="Wat is het doel van deze les?"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-close="modal-lesplan">Annuleren</button>
+                    <button type="submit" class="btn btn-primary">Lesplan opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>
